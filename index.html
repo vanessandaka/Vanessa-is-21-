@@ -3,13 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Vanessa’s Birthday</title>
+<title>Nessaaa is turning 21</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DM+Sans:wght@400;500;700&display=swap">
 <style>
-:root{--sky1:#dfe6ff;--sky2:#fde4ee;--ink:#2a1f5c;--muted:#5a4f8a;--card:#ffffffcc;--line:#2a1f5c33;--btn:#2a1f5c;--btntxt:#fff;
+:root{--sky1:#ffd6ec;--sky2:#c8f1ff;--ink:#3b1f6e;--muted:#6a4fa3;--card:#ffffffd9;--line:#3b1f6e44;--btn:#ff3d9a;--btntxt:#fff;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sky1:#1b1745;--sky2:#3a1d52;--ink:#fff4fa;--muted:#cdbfe8;--card:#ffffff14;--line:#ffffff40;--btn:#ffd45e;--btntxt:#2a1f5c}}
-:root[data-theme="dark"]{--sky1:#1b1745;--sky2:#3a1d52;--ink:#fff4fa;--muted:#cdbfe8;--card:#ffffff14;--line:#ffffff40;--btn:#ffd45e;--btntxt:#2a1f5c}
 *{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 html,body{margin:0;min-height:100%}
@@ -17,13 +15,14 @@ body{background:linear-gradient(180deg,var(--sky1),var(--sky2));color:var(--ink)
 h1,h2{font-family:"Bagel Fat One","DM Sans",system-ui,sans-serif;font-weight:400;line-height:1.05;margin:0}
 .screen{display:none;min-height:100vh;min-height:100dvh;padding:32px 22px;position:relative;z-index:2;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .screen.on{display:flex}
-h1{font-size:clamp(46px,13vw,104px)}
+h1{font-size:clamp(42px,12vw,96px)}
 h2{font-size:clamp(34px,8vw,56px);margin-bottom:10px}
-p.sub{max-width:34ch;color:var(--muted);margin:14px 0 26px}
+p.sub{max-width:34ch;color:var(--muted);margin:14px 0 26px;font-weight:500}
 button{font:inherit;cursor:pointer;border:0}
-.go{background:var(--btn);color:var(--btntxt);font-weight:700;padding:14px 30px;border-radius:999px;font-size:19px}
-.go:active{transform:scale(.97)}
-:focus-visible{outline:3px solid #ff5d8f;outline-offset:3px}
+.go{background:var(--btn);color:var(--btntxt);font-weight:700;padding:14px 34px;border-radius:999px;font-size:20px;box-shadow:0 6px 0 #c4166f}
+.go:active{transform:translateY(3px);box-shadow:0 3px 0 #c4166f}
+:focus-visible{outline:3px solid #8c5cff;outline-offset:3px}
+.me{width:min(60vw,260px);height:min(60vw,260px);object-fit:cover;border-radius:50%;border:6px solid #fff;margin-bottom:18px;box-shadow:0 8px 24px #0003}
 .choices{display:grid;gap:14px;width:100%;max-width:420px;margin-top:18px}
 .choice{background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:22px;padding:18px 20px;text-align:left;display:flex;align-items:center;gap:16px;font-weight:700;font-size:21px}
 .choice small{display:block;font-weight:400;font-size:15px;color:var(--muted)}
@@ -35,12 +34,12 @@ button{font:inherit;cursor:pointer;border:0}
 .gifts li span{font-size:26px}
 .back{background:none;color:var(--muted);text-decoration:underline;padding:10px;font-size:16px}
 #sky{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
-.b{position:absolute;bottom:-140px;width:64px;height:78px;border-radius:50% 50% 48% 48%;pointer-events:auto;cursor:pointer;animation:rise linear forwards;box-shadow:inset -8px -10px 0 #0000001c,inset 8px 8px 0 #ffffff55}
+.b{position:absolute;bottom:-140px;width:64px;height:78px;border-radius:50% 50% 48% 48%;pointer-events:auto;cursor:pointer;animation:rise linear forwards;box-shadow:inset -8px -10px 0 #0000001c,inset 8px 8px 0 #ffffff66}
 .b::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:50px;background:var(--ink);opacity:.35}
-@keyframes rise{to{transform:translateY(-130vh) rotate(var(--r,6deg))}}
+@keyframes rise{to{transform:translateY(calc(-100vh - 40px)) rotate(var(--r,6deg))}}
 .pop{position:absolute;width:10px;height:10px;border-radius:50%;animation:burst .7s ease-out forwards}
 @keyframes burst{to{transform:translate(var(--x),var(--y));opacity:0}}
-@media (prefers-reduced-motion:reduce){.b{animation-duration:0s!important;bottom:auto}.pop{animation:none;display:none}}
+@media (prefers-reduced-motion:reduce){.pop{animation:none;display:none}}
 </style>
 </head>
 <body>
@@ -48,9 +47,10 @@ button{font:inherit;cursor:pointer;border:0}
 
 <main>
 <section class="screen on" id="s1">
-  <h1>It’s my<br>birthday!</h1>
-  <p class="sub">Pop a balloon, then come on in. I’m so glad you’re here.</p>
-  <button class="go" id="start">Come celebrate</button>
+  <img src="me.png" alt="Vanessa" class="me" onerror="this.style.display='none'">
+  <h1>Nessaaa is<br>turning 21 😝🥳🥳</h1>
+  <p class="sub">Karibia karibia</p>
+  <button class="go" id="start">Tap tap</button>
 </section>
 
 <section class="screen" id="s2">
@@ -72,19 +72,19 @@ button{font:inherit;cursor:pointer;border:0}
 /* EDIT HERE: change the wording and gift ideas for each group */
 var GROUPS = {
   friend: {
-    label: "Friend", note: "Thanks for celebrating with me", color: "#ff8fb1",
+    label: "Friend", note: "Thanks for celebrating with me", color: "#ff3d9a",
     title: "Friend gifts",
     text: "Anything small and thoughtful makes me happy.",
     gifts: [["🎁","A small surprise gift"],["💌","A handwritten card"],["🍫","Snacks or sweet treats"],["🌸","Flowers"]]
   },
   close: {
-    label: "Close friend", note: "You know me best", color: "#ffd45e",
+    label: "Close friend", note: "You know me best", color: "#ffd23f",
     title: "Close friend gifts",
     text: "You know my taste, so surprise me.",
     gifts: [["👗","Something to wear"],["🧴","Skincare or self-care set"],["📚","A book I’d love"],["🎟️","A day out together"]]
   },
   family: {
-    label: "Family", note: "My favourite people", color: "#7be0c3",
+    label: "Family", note: "My favourite people", color: "#2ee6a6",
     title: "Family gifts",
     text: "Your love and time mean the most.",
     gifts: [["🏠","Something for my space"],["💻","Something useful for school"],["💵","A contribution to my goals"],["🍽️","A birthday meal together"]]
@@ -93,7 +93,7 @@ var GROUPS = {
 /* end of editable section */
 
 var $ = function(id){return document.getElementById(id)};
-var COLORS = ["#ff8fb1","#ffd45e","#7be0c3","#a98bff","#ff9a6b","#6cc4ff"];
+var COLORS = ["#ff3d9a","#ffd23f","#2ee6a6","#8c5cff","#ff8a5c","#4cc9ff","#ffb3d9","#b8f2e6","#d7c4ff","#ffe3a3"];
 var sky = $("sky");
 
 function show(id){
@@ -117,7 +117,7 @@ function balloon(){
   b.style.animationDuration=(9+Math.random()*8)+"s";
   b.style.setProperty("--r",(Math.random()*20-10)+"deg");
   b.addEventListener("click",function(e){popAt(e.clientX,e.clientY,c);b.remove()});
-  b.addEventListener("animationend",function(){b.remove()});
+  b.addEventListener("animationend",function(){var r=b.getBoundingClientRect();popAt(r.left+r.width/2,Math.max(r.top+r.height/2,20),c);b.remove()});
   sky.appendChild(b);
 }
 for(var i=0;i<10;i++){setTimeout(balloon,i*350)}
