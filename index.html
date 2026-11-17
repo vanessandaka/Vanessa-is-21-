@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vanessa’s Birthday</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{--sky1:#dfe6ff;--sky2:#fde4ee;--ink:#2a1f5c;--muted:#5a4f8a;--card:#ffffffcc;--line:#2a1f5c33;--btn:#2a1f5c;--btntxt:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sky1:#1b1745;--sky2:#3a1d52;--ink:#fff4fa;--muted:#cdbfe8;--card:#ffffff14;--line:#ffffff40;--btn:#ffd45e;--btntxt:#2a1f5c}}
+:root[data-theme="dark"]{--sky1:#1b1745;--sky2:#3a1d52;--ink:#fff4fa;--muted:#cdbfe8;--card:#ffffff14;--line:#ffffff40;--btn:#ffd45e;--btntxt:#2a1f5c}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{margin:0;min-height:100%}
+body{background:linear-gradient(180deg,var(--sky1),var(--sky2));color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;font-size:18px;line-height:1.5;overflow-x:hidden}
+h1,h2{font-family:"Bagel Fat One","DM Sans",system-ui,sans-serif;font-weight:400;line-height:1.05;margin:0}
+.screen{display:none;min-height:100vh;min-height:100dvh;padding:32px 22px;position:relative;z-index:2;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.screen.on{display:flex}
+h1{font-size:clamp(46px,13vw,104px)}
+h2{font-size:clamp(34px,8vw,56px);margin-bottom:10px}
+p.sub{max-width:34ch;color:var(--muted);margin:14px 0 26px}
+button{font:inherit;cursor:pointer;border:0}
+.go{background:var(--btn);color:var(--btntxt);font-weight:700;padding:14px 30px;border-radius:999px;font-size:19px}
+.go:active{transform:scale(.97)}
+:focus-visible{outline:3px solid #ff5d8f;outline-offset:3px}
+.choices{display:grid;gap:14px;width:100%;max-width:420px;margin-top:18px}
+.choice{background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:22px;padding:18px 20px;text-align:left;display:flex;align-items:center;gap:16px;font-weight:700;font-size:21px}
+.choice small{display:block;font-weight:400;font-size:15px;color:var(--muted)}
+.choice:hover{border-color:var(--ink)}
+.dot{width:38px;height:46px;border-radius:50% 50% 48% 48%;flex:none;position:relative}
+.dot::after{content:"";position:absolute;left:50%;bottom:-8px;width:2px;height:10px;background:var(--ink);opacity:.5}
+.gifts{list-style:none;padding:0;margin:10px 0 26px;width:100%;max-width:440px;text-align:left}
+.gifts li{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px 18px;margin-bottom:10px;display:flex;gap:12px;align-items:center}
+.gifts li span{font-size:26px}
+.back{background:none;color:var(--muted);text-decoration:underline;padding:10px;font-size:16px}
+#sky{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.b{position:absolute;bottom:-140px;width:64px;height:78px;border-radius:50% 50% 48% 48%;pointer-events:auto;cursor:pointer;animation:rise linear forwards;box-shadow:inset -8px -10px 0 #0000001c,inset 8px 8px 0 #ffffff55}
+.b::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:50px;background:var(--ink);opacity:.35}
+@keyframes rise{to{transform:translateY(-130vh) rotate(var(--r,6deg))}}
+.pop{position:absolute;width:10px;height:10px;border-radius:50%;animation:burst .7s ease-out forwards}
+@keyframes burst{to{transform:translate(var(--x),var(--y));opacity:0}}
+@media (prefers-reduced-motion:reduce){.b{animation-duration:0s!important;bottom:auto}.pop{animation:none;display:none}}
+</style>
+</head>
+<body>
+<div id="sky" aria-hidden="true"></div>
+
+<main>
+<section class="screen on" id="s1">
+  <h1>It’s my<br>birthday!</h1>
+  <p class="sub">Pop a balloon, then come on in. I’m so glad you’re here.</p>
+  <button class="go" id="start">Come celebrate</button>
+</section>
+
+<section class="screen" id="s2">
+  <h2>Who’s joining?</h2>
+  <p class="sub">Pick the one that fits you best.</p>
+  <div class="choices" id="choices"></div>
+</section>
+
+<section class="screen" id="s3">
+  <h2 id="gtitle"></h2>
+  <p class="sub" id="gtext"></p>
+  <ul class="gifts" id="glist"></ul>
+  <button class="go" id="thanks">Thank you!</button>
+  <button class="back" id="back">Go back</button>
+</section>
+</main>
+
+<script>
+/* EDIT HERE: change the wording and gift ideas for each group */
+var GROUPS = {
+  friend: {
+    label: "Friend", note: "Thanks for celebrating with me", color: "#ff8fb1",
+    title: "Friend gifts",
+    text: "Anything small and thoughtful makes me happy.",
+    gifts: [["🎁","A small surprise gift"],["💌","A handwritten card"],["🍫","Snacks or sweet treats"],["🌸","Flowers"]]
+  },
+  close: {
+    label: "Close friend", note: "You know me best", color: "#ffd45e",
+    title: "Close friend gifts",
+    text: "You know my taste, so surprise me.",
+    gifts: [["👗","Something to wear"],["🧴","Skincare or self-care set"],["📚","A book I’d love"],["🎟️","A day out together"]]
+  },
+  family: {
+    label: "Family", note: "My favourite people", color: "#7be0c3",
+    title: "Family gifts",
+    text: "Your love and time mean the most.",
+    gifts: [["🏠","Something for my space"],["💻","Something useful for school"],["💵","A contribution to my goals"],["🍽️","A birthday meal together"]]
+  }
+};
+/* end of editable section */
+
+var $ = function(id){return document.getElementById(id)};
+var COLORS = ["#ff8fb1","#ffd45e","#7be0c3","#a98bff","#ff9a6b","#6cc4ff"];
+var sky = $("sky");
+
+function show(id){
+  ["s1","s2","s3"].forEach(function(s){$(s).classList.toggle("on", s===id)});
+  window.scrollTo(0,0);
+}
+function popAt(x,y,c){
+  for(var i=0;i<12;i++){
+    var p=document.createElement("div");
+    p.className="pop";p.style.left=x+"px";p.style.top=y+"px";p.style.background=c;
+    var a=Math.random()*6.28,d=40+Math.random()*50;
+    p.style.setProperty("--x",Math.cos(a)*d+"px");p.style.setProperty("--y",Math.sin(a)*d+"px");
+    sky.appendChild(p);setTimeout(function(el){el.remove()},750,p);
+  }
+}
+function balloon(){
+  var b=document.createElement("div"),c=COLORS[Math.floor(Math.random()*COLORS.length)];
+  var s=0.7+Math.random()*0.8;
+  b.className="b";b.style.background=c;b.style.left=Math.random()*92+"vw";
+  b.style.width=64*s+"px";b.style.height=78*s+"px";
+  b.style.animationDuration=(9+Math.random()*8)+"s";
+  b.style.setProperty("--r",(Math.random()*20-10)+"deg");
+  b.addEventListener("click",function(e){popAt(e.clientX,e.clientY,c);b.remove()});
+  b.addEventListener("animationend",function(){b.remove()});
+  sky.appendChild(b);
+}
+for(var i=0;i<10;i++){setTimeout(balloon,i*350)}
+setInterval(function(){if(sky.children.length<30)balloon()},900);
+
+$("start").onclick=function(){show("s2")};
+var box=$("choices");
+Object.keys(GROUPS).forEach(function(k){
+  var g=GROUPS[k],btn=document.createElement("button");
+  btn.className="choice";
+  btn.innerHTML='<span class="dot" style="background:'+g.color+'"></span><span>'+g.label+'<small>'+g.note+'</small></span>';
+  btn.onclick=function(){
+    $("gtitle").textContent=g.title;$("gtext").textContent=g.text;
+    var ul=$("glist");ul.innerHTML="";
+    g.gifts.forEach(function(x){
+      var li=document.createElement("li");
+      li.innerHTML="<span>"+x[0]+"</span><div>"+x[1]+"</div>";ul.appendChild(li);
+    });
+    show("s3");
+  };
+  box.appendChild(btn);
+});
+$("back").onclick=function(){show("s2")};
+$("thanks").onclick=function(){
+  for(var i=0;i<8;i++){balloon()}
+  show("s1");
+};
+</script>
+</body>
+</html>
